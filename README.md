@@ -1,2 +1,2 @@
-# nemo-examples
-The nemo example project
+# `nemo-examples`
+The [`nemo`](https://github.com/photowey/nemo) project examples.

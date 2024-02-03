@@ -1,0 +1,5 @@
+nemo:
+  application:
+    name: "nemo-examples"
+  profiles:
+    active: "dev"
