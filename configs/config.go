@@ -16,6 +16,10 @@
 
 package configs
 
+import (
+	"github.com/photowey/nemo-examples/pkg/logger"
+)
+
 // Config global config instance.
 type Config struct {
 	Server Server
@@ -35,10 +39,28 @@ type App struct {
 
 // Application `nemo.application`(`application.yml`) config node.
 type Application struct {
-	Name string
+	Name    string
+	Timeout int64 // seconds
 }
 
 // Profiles `nemo.profiles`(`application.yml`) config node.
 type Profiles struct {
 	Active []string
+}
+
+// Health `nemo.health`(`application.yml`) config node.
+type Health struct {
+	Api string
+}
+
+func Timeout() uint32 {
+	return uint32(10)
+}
+
+func Host() string {
+	return "127.0.0.1:9527"
+}
+
+func Logger() logger.Config {
+	return logger.Config{}
 }

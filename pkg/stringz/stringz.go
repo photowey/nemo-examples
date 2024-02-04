@@ -14,43 +14,32 @@
  * limitations under the License.
  */
 
-package app
+package stringz
 
 import (
 	"fmt"
-	"os"
-
-	"github.com/photowey/nemo-examples/internal/app"
-	"github.com/spf13/cobra"
 )
 
-var (
-	conf string
-
-	root = &cobra.Command{
-		Use:   "nemoexp",
-		Short: "Nemo project examples",
-		Long:  "Nemo project examples",
-		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Hello Nemo examples")
-		},
-	}
-)
-
-func init() {
-	cobra.OnInitialize(startApp)
-	root.AddCommand(start)
+func String(source any) string {
+	return fmt.Sprintf("%v", source)
 }
 
-func Run() {
-	if err := root.Execute(); err != nil {
-		_, _ = fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
+func ReplaceTemplate(template string, args ...any) string {
+	return fmt.Sprintf(template, args...)
 }
 
-func startApp() {
-	if err := app.Start(conf); err != nil {
-		cobra.CheckErr(err)
-	}
+func IsBlankString(str string) bool {
+	return "" == str
+}
+
+func IsNotBlankString(str string) bool {
+	return !IsBlankString(str)
+}
+
+func IsEmptyStringSlice(target []string) bool {
+	return len(target) == 0
+}
+
+func IsNotEmptyStringSlice(target []string) bool {
+	return !IsEmptyStringSlice(target)
 }

@@ -1,5 +1,8 @@
 nemo:
   application:
     name: "nemo-examples"
+    timeout: 10
   profiles:
     active: "dev"
+  health:
+    api: "http://127.0.0.1:${server.port}/health"

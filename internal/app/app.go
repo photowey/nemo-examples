@@ -17,40 +17,39 @@
 package app
 
 import (
-	"fmt"
-	"os"
-
-	"github.com/photowey/nemo-examples/internal/app"
-	"github.com/spf13/cobra"
+	"github.com/photowey/nemo-examples/configs"
+	"github.com/photowey/nemo-examples/pkg/logger"
+	"github.com/photowey/perrors"
 )
 
-var (
-	conf string
-
-	root = &cobra.Command{
-		Use:   "nemoexp",
-		Short: "Nemo project examples",
-		Long:  "Nemo project examples",
-		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Hello Nemo examples")
-		},
+func Start(conf string) error {
+	err := loadConfig(conf)
+	if err != nil {
+		return err
 	}
-)
 
-func init() {
-	cobra.OnInitialize(startApp)
-	root.AddCommand(start)
+	err = dummyInitLogger()
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
-func Run() {
-	if err := root.Execute(); err != nil {
-		_, _ = fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
+func loadConfig(conf string) error {
+	// TODO
+	// load config by nemo.
+
+	return nil
 }
 
-func startApp() {
-	if err := app.Start(conf); err != nil {
-		cobra.CheckErr(err)
+func dummyInitLogger() error {
+	if err := logger.Init(configs.Logger()); err != nil {
+		return perrors.Errorf("nemoexp: init logger failed: %v", err)
 	}
+
+	return nil
+}
+
+func Close() {
 }
